@@ -1,0 +1,23 @@
+# For a full list of active aliases, run `alias`. Or, (bc ohmyzsh plugin alias) use acs
+alias ls="exa -a --icons -F"
+alias tree="ls --tree"
+alias cat="bat"
+alias python="python3"
+alias python3.9="/opt/homebrew/bin/python3.9"
+alias pi="python3 -i"
+alias karabiner="code /Users/aidangibson/.config/karabiner.edn"
+alias zshrc="code ~/.zshrc && code ~/.zaliases && code ~/.zshenv"
+alias brew86="arch -x86_64 /usr/local/bin/brew"
+alias intel="arch -x86_64 /bin/zsh"
+alias airdrop="sh /usr/local/bin/airdropfix.sh"
+alias s="sudo pmset disablesleep 0 && sudo pmset sleepnow"
+alias c="clear"
+alias reload='source ~/.zshrc'
+alias pyenv86="arch -x86_64 pyenv"
+alias python3.7="arch -x86_64 /Users/aidangibson/.pyenv/versions/3.7.14/bin/python3.7"
+alias pip3.7="arch -x86_64 /Users/aidangibson/.pyenv/versions/3.7.14/bin/python3.7 -m pip"
+alias rip="rip --graveyard ~/.Trash"
+alias pinentry='pinentry-mac'
+alias ext="cd '/Users/aidangibson/Library/Mobile Documents/iCloud~md~obsidian/Documents/Ext Brain'"
+alias ziu="zi self-update && zi delete --yes --quiet --clean && zi update --all --parallel --quiet"
+alias bu="brew update && brew upgrade && ziu"
