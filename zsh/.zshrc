@@ -143,7 +143,7 @@ zi wait lucid for \
 #   zsh-users/zsh-syntax-highlighting
 # fi
 
-# move this to a sep file; fig out ocd solution to functions 
+# TODO move this to a sep file; fig out ocd solution to functions 
 # rga-fzf() {
 # 	RG_PREFIX="rga --files-with-matches"
 # 	local file

@@ -1,5 +1,6 @@
-# . "$HOME/.cargo/env"
+# . "$HOME/.cargo/env" 
 # PATH begin
+# TODO why do some have path at beginning and some at end?
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/Applications/calibre.app/Contents/MacOS:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
@@ -9,6 +10,7 @@ export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 # export PATH="$HOME/.local/share/gem/ruby/3.1.0/bin:$PATH"
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/usr/local/sbin
+export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/opt/homebrew/bin/hashcat
 export PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH" #adds homebrew make to path
 export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
