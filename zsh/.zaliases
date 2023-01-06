@@ -21,4 +21,6 @@ alias pinentry='pinentry-mac'
 alias ext="cd '/Users/aidangibson/Library/Mobile Documents/iCloud~md~obsidian/Documents/Ext Brain'"
 alias ziu="zi self-update && zi delete --yes --quiet --clean && zi update --all --parallel --quiet"
 alias bu="brew update && brew upgrade && ziu && tldr --update"
+
+# Dear future potential employers: I don't use this alias on other people's repos and only use it for small changes on personal repos.
 alias gp="git commit -am "trivial" && git push"
