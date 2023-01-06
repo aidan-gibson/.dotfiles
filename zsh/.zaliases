@@ -21,3 +21,4 @@ alias pinentry='pinentry-mac'
 alias ext="cd '/Users/aidangibson/Library/Mobile Documents/iCloud~md~obsidian/Documents/Ext Brain'"
 alias ziu="zi self-update && zi delete --yes --quiet --clean && zi update --all --parallel --quiet"
 alias bu="brew update && brew upgrade && ziu && tldr --update"
+alias gp="git commit -am "trivial" && git push"
