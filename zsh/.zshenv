@@ -1,4 +1,4 @@
-# . "$HOME/.cargo/env" 
+# . "$HOME/.cargo/env"
 # PATH begin
 # TODO why do some have path at beginning and some at end?
 export PATH=/opt/homebrew/bin:$PATH
