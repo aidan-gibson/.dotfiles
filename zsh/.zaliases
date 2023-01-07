@@ -1,12 +1,12 @@
 # For a full list of active aliases, run `alias`. Or, (bc ohmyzsh plugin alias) use acs
 alias ls="exa -a --icons -F"
-alias tree="ls --tree"
+alias tree="ls --tree" # this will use prior alias; so it will be `exa -a --icons -F --tree`
 alias cat="bat"
 alias python="python3"
 alias python3.9="/opt/homebrew/bin/python3.9"
 alias pi="python3 -i"
 alias karabiner="code /Users/aidangibson/.config/karabiner.edn"
-alias zshrc="code ~/.dotfiles/zsh/.zshrc && code ~/.dotfiles/zsh/.zaliases && code ~/.dotfiles/zsh/.zshenv"
+alias zshrc="code ~/.dotfiles/zsh/.zshrc && code ~/.dotfiles/zsh/.zaliases && code ~/.dotfiles/zsh/.zshenv && cd ~/.dotfiles/"
 alias brew86="arch -x86_64 /usr/local/bin/brew"
 alias intel="arch -x86_64 /bin/zsh"
 alias airdrop="sh /usr/local/bin/airdropfix.sh"
@@ -20,7 +20,7 @@ alias rip="rip --graveyard ~/.Trash"
 alias pinentry='pinentry-mac'
 alias ext="cd '/Users/aidangibson/Library/Mobile Documents/iCloud~md~obsidian/Documents/Ext Brain'"
 alias ziu="zi self-update && zi delete --yes --quiet --clean && zi update --all --parallel --quiet"
-alias bu="brew update && brew upgrade && ziu && tldr --update"
+alias bu="brew update && brew upgrade && ziu && tldr --update && sudo softwareupdate -ia --verbose"
 
 # Dear future potential employers: I don't use this alias on other people's repos and only use it for small changes on personal repos.
 alias gp="git commit -am "trivial" && git push"

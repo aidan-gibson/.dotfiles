@@ -206,3 +206,6 @@ HISTFILE=${ZDOTDIR:-$HOME}/.zsh_h
 HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
 export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
+
+#  didn't need this ig?? it's working without
+eval "$(frum init)"
