@@ -60,3 +60,15 @@ export LANG=en_US.UTF-8
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 # export VISUAL='nano'
+
+# brew util-linux
+export PATH="/opt/homebrew/opt/util-linux/bin:$PATH"
+export PATH="/opt/homebrew/opt/util-linux/sbin:$PATH"
+# For compilers to find util-linux you may need to set:
+# export LDFLAGS="-L/opt/homebrew/opt/util-linux/lib"
+# export CPPFLAGS="-I/opt/homebrew/opt/util-linux/include"
+# For pkg-config to find util-linux you may need to set:
+# export PKG_CONFIG_PATH="/opt/homebrew/opt/util-linux/lib/pkgconfig"
+
+# for lsregister https://ss64.com/osx/lsregister.html
+export PATH="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support:$PATH"

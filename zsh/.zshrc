@@ -36,6 +36,8 @@ setopt auto_pushd           # Make cd push the old directory onto the directory 
 setopt interactive_comments # Comments even in interactive shells.
 setopt pushd_ignore_dups    # Don't push multiple copies directory onto the directory stack.
 setopt pushd_minus          # Swap the meaning of cd +1 and cd -1 to the opposite.
+# https://www.reddit.com/r/zsh/comments/h9mdvc/why_do_i_get_this_error_zsh_no_matches_found/
+
 
 # Bindkeys
 # TODO set cmd+shift+F to rga-fzf https://wiki.zshell.dev/docs/guides/syntax/bindkey#-bindkey
@@ -207,5 +209,11 @@ HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
 export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
 
-#  didn't need this ig?? it's working without
+# TODO defer this
 eval "$(frum init)"
+
+# https://unix.stackexchange.com/questions/125385/combined-mkdir-and-cd
+mkdr () {
+  mkdir -p -- "$1" && 
+  cd -P -- "$1"
+}

@@ -3,6 +3,8 @@ alias ls="exa -a --icons -F"
 alias tree="ls --tree" # this will use prior alias; so it will be `exa -a --icons -F --tree` setopt COMPLETE_ALIASES would prevent that behavior
 alias cat="bat"
 alias python="python3"
+alias pip="python3 -m pip"
+alias pip3="python3 -m pip"
 alias python3.9="/opt/homebrew/bin/python3.9"
 alias pi="python3 -i"
 alias karabiner="code /Users/aidangibson/.config/karabiner.edn"
@@ -20,7 +22,9 @@ alias rip="rip --graveyard ~/.Trash"
 alias pinentry='pinentry-mac'
 alias ext="cd '/Users/aidangibson/Library/Mobile Documents/iCloud~md~obsidian/Documents/Ext Brain'"
 alias ziu="zi self-update && zi delete --yes --quiet --clean && zi update --all --parallel --quiet"
-alias bu="brew update && brew upgrade && ziu && tldr --update && sudo softwareupdate -ia --verbose"
+alias bu="brew update && brew upgrade && ziu && tldr --update && sudo softwareupdate -ia --verbose && pip install --upgrade pip"
+# not doing `pip-review --auto` to auto-update pip packages bc will break shit
 
 # Dear future potential employers: I don't use this alias on other people's repos and only use it for small changes on personal repos.
 alias gp="git commit -am "trivial" && git push"
+alias chatgpt="noglob chatgpt" # # https://www.reddit.com/r/zsh/comments/h9mdvc/why_do_i_get_this_error_zsh_no_matches_found/
