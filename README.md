@@ -13,3 +13,4 @@ just doing some symlink bullshit temporarily until real [dotfiles](obsidian://op
 
 they're both inc, but eventually put a tldr of em in repo
 
+- [ ] set up gh action to test how all the benchmarks change after every commit, make a graph

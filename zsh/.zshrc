@@ -1,3 +1,5 @@
+# TODO scope 
+
 # Zmodloads https://zsh.sourceforge.io/Doc/Release/Shell-Builtin-Commands.html#index-zmodload
 zmodload zsh/zprof # enables zprof command
 zmodload zsh/curses # required for ziconsole https://wiki.zshell.dev/ecosystem/plugins/zi-console
@@ -92,11 +94,13 @@ zi light romkatv/zsh-defer
 
 # Oh-My-Zsh Plugins https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
 # If an OMZP isn't working, try adding OMZL's it depends on I may not have loaded
+
+#TODO not working; look at that issue for acs, colored-man-pages also not working.
 zi-turbo '0b' for \
   OMZP::command-not-found \
-  OMZP::colored-man-pages \
   https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/termsupport.zsh \
-  OMZP::aliases
+  OMZP::aliases 
+  # OMZP::colored-man-pages
 
 # Github Plugins
 zi-turbo '0c' for \
@@ -106,7 +110,8 @@ zi-turbo '0c' for \
   z-shell/zbrowse
 
 
-zsh-defer export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+
+
 
 
 
@@ -208,12 +213,45 @@ HISTFILE=${ZDOTDIR:-$HOME}/.zsh_h
 HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
 export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
+# zsh-defer export GEM_HOME="$(ruby -e 'puts Gem.user_dir')" # TODO do i need this given that I'm using frum? also its pointing to 2.6 (macOS install) ):
+zsh-defer eval "$(frum init)"
 
-# TODO defer this
-eval "$(frum init)"
+
+
+
+# TODO all path stuff in zshenv / deferred
+# should i use eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# TODO put all fncs in sep file or folder and zsh-defer loading it
 
 # https://unix.stackexchange.com/questions/125385/combined-mkdir-and-cd
 mkdr () {
   mkdir -p -- "$1" && 
   cd -P -- "$1"
+}
+
+
+
+encodeuri() {
+  local string="$*"
+  local strlen=${#string}
+  local encoded=""
+
+  for (( pos = 0; pos < strlen; pos ++ )); do
+    c=${string:$pos:1}
+    case "$c" in
+      [-_.~a-zA-Z0-9]) o="${c}" ;;
+      *) printf -v o '%%%02x' "'$c"
+    esac
+    encoded+="${o}"
+  done
+  echo "${encoded}"
+}
+man() {
+  if [[ -d /Applications/Dash.app && \
+    -d "$HOME/Library/Application Support/Dash/DocSets/Man_Pages" ]]; then
+    /usr/bin/open dash://$(encodeuri "$@")
+  else
+    /usr/bin/man "$@"
+  fi
 }

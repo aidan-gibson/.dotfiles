@@ -22,8 +22,6 @@ export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
 
 
-
-
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/usr/local/sbin
 export PATH=$PATH:/usr/local/bin
