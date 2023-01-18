@@ -4,6 +4,7 @@
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/Applications/calibre.app/Contents/MacOS:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export STARSHIP_CONFIG="$HOME/.dotfiles/zsh/starship.toml" #should this b elsewhere?? look at loading sequence etc
 # export PATH="/opt/homebrew/opt/ruby/bin:$PATH" #this changes default ruby from macOS to brew
 # export PATH="$PATH:$GEM_HOME/bin"
 # export PATH="$HOME/.gem/ruby/3.1.0/bin:$PATH"

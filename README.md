@@ -1,5 +1,9 @@
 just doing some symlink bullshit temporarily until real [dotfiles](obsidian://open?vault=Ext%20Brain&file=dotfiles) solution
 
+
+
+precommit can resolve symlinks to real files; fig out same thing but for aliases; also periodically run eclecticlight's alias fixing program
+
 # zsh
 
 - [ ] Look thru `.zshrc copy` and `.zshrcplayground` to see if missing anything from there

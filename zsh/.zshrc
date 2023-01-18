@@ -71,36 +71,36 @@ zi light romkatv/zsh-defer
 # Oh-My-Zsh Library  https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/
 # backslash just escapes the newline char, using for readability 
 # zi-turbo a-c 0-9. heavier things should be loaded later. syntax highlighters must be loaded last
-# zi-turbo '0a' for \
-#   OMZL::git.zsh \
-#   OMZL::compfix.zsh \
-#   OMZL::diagnostics.zsh \
-#   OMZL::spectrum.zsh \
-#   OMZL::functions.zsh \
-#   OMZL::theme-and-appearance.zsh \
-#   OMZL::bzr.zsh \
-#   OMZL::cli.zsh \
-#   OMZL::clipboard.zsh \
-#   OMZL::completion.zsh \
-#   OMZL::directories.zsh \
-#   OMZL::grep.zsh \
-#   OMZL::history.zsh \
-#   OMZL::key-bindings.zsh \
-#   OMZL::misc.zsh \
-#   OMZL::prompt_info_functions.zsh \
-#   OMZL::termsupport.zsh \
-#   OMZL::vcs_info.zsh \
+zi-turbo '0a' for \
+  OMZL::theme-and-appearance.zsh 
+  # OMZL::bzr.zsh \
+  # OMZL::cli.zsh \
+  # OMZL::clipboard.zsh \
+  # OMZL::completion.zsh \
+  # OMZL::directories.zsh 
+  # OMZL::misc.zsh \
+  # OMZL::prompt_info_functions.zsh 
+  # OMZL::termsupport.zsh 
+  # OMZL::vcs_info.zsh 
+    # OMZL::grep.zsh \
+  # OMZL::history.zsh \
+  # OMZL::key-bindings.zsh \
+  #   OMZL::git.zsh \
+  # OMZL::compfix.zsh \
+  # OMZL::diagnostics.zsh \
+  # OMZL::spectrum.zsh \
+  # OMZL::functions.zsh \
 # ones im not using (but this may update in the future so kinda a shitty system)
 
 # Oh-My-Zsh Plugins https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
 # If an OMZP isn't working, try adding OMZL's it depends on I may not have loaded
 
-#TODO not working; look at that issue for acs, colored-man-pages also not working.
+#TODO not working; look at that issue for acs
 zi-turbo '0b' for \
   OMZP::command-not-found \
   https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/termsupport.zsh \
-  OMZP::aliases 
-  # OMZP::colored-man-pages
+  OMZP::aliases \
+  OMZP::colored-man-pages
 
 # Github Plugins
 zi-turbo '0c' for \
@@ -231,27 +231,34 @@ mkdr () {
 }
 
 
+# open man pages in dash
+# encodeuri() {
+#   local string="$*"
+#   local strlen=${#string}
+#   local encoded=""
 
-encodeuri() {
-  local string="$*"
-  local strlen=${#string}
-  local encoded=""
+#   for (( pos = 0; pos < strlen; pos ++ )); do
+#     c=${string:$pos:1}
+#     case "$c" in
+#       [-_.~a-zA-Z0-9]) o="${c}" ;;
+#       *) printf -v o '%%%02x' "'$c"
+#     esac
+#     encoded+="${o}"
+#   done
+#   echo "${encoded}"
+# }
+# man() {
+#   if [[ -d /Applications/Dash.app && \
+#     -d "$HOME/Library/Application Support/Dash/DocSets/Man_Pages" ]]; then
+#     /usr/bin/open dash://$(encodeuri "$@")
+#   else
+#     /usr/bin/man "$@"
+#   fi
+# }
 
-  for (( pos = 0; pos < strlen; pos ++ )); do
-    c=${string:$pos:1}
-    case "$c" in
-      [-_.~a-zA-Z0-9]) o="${c}" ;;
-      *) printf -v o '%%%02x' "'$c"
-    esac
-    encoded+="${o}"
-  done
-  echo "${encoded}"
-}
-man() {
-  if [[ -d /Applications/Dash.app && \
-    -d "$HOME/Library/Application Support/Dash/DocSets/Man_Pages" ]]; then
-    /usr/bin/open dash://$(encodeuri "$@")
-  else
-    /usr/bin/man "$@"
-  fi
-}
+
+# uses preview. no links or colors tho. https://scriptingosx.com/2022/11/on-viewing-man-pages-ventura-update/
+# more sophisticated version of the script w caching here https://gist.github.com/PicoMitchell/619c12fd6a53ae6ec657514915d4edf9
+# preman() {
+#     mandoc -T pdf "$(/usr/bin/man -w $@)" | open -fa Preview
+# }

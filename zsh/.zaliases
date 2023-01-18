@@ -1,4 +1,5 @@
 # For a full list of active aliases, run `alias`. Or, (bc ohmyzsh plugin alias) use acs
+# Note aliases cannot have flags. If this is necessary, use a function TODO i want `ls -l` to be `exa -a --icons -F -l -H -i -h`
 alias ls="exa -a --icons -F"
 alias tree="ls --tree" # this will use prior alias; so it will be `exa -a --icons -F --tree` setopt COMPLETE_ALIASES would prevent that behavior
 alias cat="bat"
@@ -28,3 +29,7 @@ alias bu="brew update && brew upgrade && ziu && tldr --update && sudo softwareup
 # Dear future potential employers: I don't use this alias on other people's repos and only use it for small changes on personal repos.
 alias gp="git commit -am "trivial" && git push"
 alias chatgpt="noglob chatgpt" # # https://www.reddit.com/r/zsh/comments/h9mdvc/why_do_i_get_this_error_zsh_no_matches_found/
+
+# alias man="openman"
+
+alias warp="open -a Warp" # can now type `warp .` to open warp in current dir if I'm in jetbrains or some integrated term
