@@ -32,4 +32,4 @@ alias chatgpt="noglob chatgpt" # # https://www.reddit.com/r/zsh/comments/h9mdvc/
 
 # alias man="openman"
 
-alias warp="open -a Warp" # can now type `warp .` to open warp in current dir if I'm in jetbrains or some integrated term
+alias warp="open -a Warp ." # can now type `warp` to open warp in current dir if I'm in jetbrains or some integrated term
