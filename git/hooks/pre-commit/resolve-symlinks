@@ -1,0 +1,28 @@
+#!/bin/sh
+# (replace "find ." with "find ./<path>" below, to work with only specific paths)
+
+# (these lines are really all one line, on multiple lines for clarity)
+# ...find symlinks which do not dereference to directories...
+find . -type l -exec test '!' -d {} ';' -print -exec sh -c \
+    'git rm --cached "$1"; diff -au /dev/null "$1" | git apply --cached -p1 -' \
+    "process_links_to_nondir" {} ';'
+
+
+
+
+
+# the end https://stackoverflow.com/questions/86402/how-can-i-get-git-to-follow-symlinks
+# TODO extend to add photos/media from obsid vault
+# TODO make work with mac aliases instead of (or in addition to) symlinks 
+# TODO will shit b fucked bc #!/bin/sh ?
+
+#!/bin/sh
+# (replace "find ." with "find ./<path>" below, to work with only specific paths)
+
+# (these lines are really all one line, on multiple lines for clarity)
+# ...find symlinks which do not dereference to directories...
+# find . -type l -exec test '!' -d {} ';' -print -exec sh -c \
+# ...remove the symlink blob, and add the content diff, to the index/cache
+    # 'git rm --cached "$1"; diff -au /dev/null "$1" | git apply --cached -p1 -' \
+# ...and call out to "sh".
+    # "process_links_to_nondir" {} ';'
