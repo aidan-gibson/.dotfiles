@@ -4,6 +4,7 @@ alias ls="exa -a --icons -F"
 alias tree="ls --tree" # this will use prior alias; so it will be `exa -a --icons -F --tree` setopt COMPLETE_ALIASES would prevent that behavior
 alias cat="bat"
 alias python="python3"
+alias python3="python3.11"
 alias pip="python3 -m pip"
 alias pip3="python3 -m pip"
 alias python3.9="/opt/homebrew/bin/python3.9"
