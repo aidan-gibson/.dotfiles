@@ -231,6 +231,18 @@ mkdr () {
 }
 
 
+priorityInterface ()
+{
+    route get default | awk '/interface/ {print $2}'
+}
+interfaceType ()
+{
+    ifconfig -v $1 | awk '/type: / {print $2}'
+}
+connectionType ()
+{
+    interfaceType $(priorityInterface)
+}
 # open man pages in dash
 # encodeuri() {
 #   local string="$*"
