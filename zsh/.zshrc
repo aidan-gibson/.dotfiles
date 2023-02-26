@@ -1,4 +1,5 @@
 # TODO scope 
+# TODO https://github.com/mafredri/zsh-async
 
 # Zmodloads https://zsh.sourceforge.io/Doc/Release/Shell-Builtin-Commands.html#index-zmodload
 zmodload zsh/zprof # enables zprof command
@@ -274,3 +275,8 @@ connectionType ()
 # preman() {
 #     mandoc -T pdf "$(/usr/bin/man -w $@)" | open -fa Preview
 # }
+export PATH=$PATH:/Users/aidangibson/.spicetify
+
+gitc() {
+  git clone "$1" && cd "$(basename "$1" .git)"
+}
