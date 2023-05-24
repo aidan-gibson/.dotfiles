@@ -39,6 +39,7 @@ setopt auto_pushd           # Make cd push the old directory onto the directory 
 setopt interactive_comments # Comments even in interactive shells.
 setopt pushd_ignore_dups    # Don't push multiple copies directory onto the directory stack.
 setopt pushd_minus          # Swap the meaning of cd +1 and cd -1 to the opposite.
+# setopt SOURCE_TRACE # shows all loaded config files in order of load; great for troubleshooting
 # https://www.reddit.com/r/zsh/comments/h9mdvc/why_do_i_get_this_error_zsh_no_matches_found/
 
 
@@ -72,36 +73,37 @@ zi light romkatv/zsh-defer
 # Oh-My-Zsh Library  https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/
 # backslash just escapes the newline char, using for readability 
 # zi-turbo a-c 0-9. heavier things should be loaded later. syntax highlighters must be loaded last
-zi-turbo '0a' for \
-  OMZL::theme-and-appearance.zsh 
-  # OMZL::bzr.zsh \
-  # OMZL::cli.zsh \
-  # OMZL::clipboard.zsh \
-  # OMZL::completion.zsh \
-  # OMZL::directories.zsh 
-  # OMZL::misc.zsh \
-  # OMZL::prompt_info_functions.zsh 
-  # OMZL::termsupport.zsh 
-  # OMZL::vcs_info.zsh 
-    # OMZL::grep.zsh \
-  # OMZL::history.zsh \
-  # OMZL::key-bindings.zsh \
-  #   OMZL::git.zsh \
-  # OMZL::compfix.zsh \
-  # OMZL::diagnostics.zsh \
-  # OMZL::spectrum.zsh \
-  # OMZL::functions.zsh \
+# zi-turbo '0a' for \
+#   OMZL::bzr.zsh \
+#   OMZL::cli.zsh \
+#   OMZL::clipboard.zsh \
+#   OMZL::completion.zsh \
+#   OMZL::correction.zsh \
+#   OMZL::directories.zsh \
+#   OMZL::misc.zsh \
+#   OMZL::prompt_info_functions.zsh \
+#   OMZL::termsupport.zsh \
+#   OMZL::vcs_info.zsh \
+#   OMZL::grep.zsh \
+#   OMZL::history.zsh \
+#   OMZL::key-bindings.zsh \
+#   OMZL::git.zsh \
+#   OMZL::compfix.zsh \
+#   OMZL::diagnostics.zsh \
+#   OMZL::spectrum.zsh \
+#   OMZL::functions.zsh
 # ones im not using (but this may update in the future so kinda a shitty system)
-
+# OMZL::theme-and-appearance.zsh DO NOT USE this shit aliases ls to ls -G
 # Oh-My-Zsh Plugins https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
 # If an OMZP isn't working, try adding OMZL's it depends on I may not have loaded
 
 #TODO not working; look at that issue for acs
 zi-turbo '0b' for \
   OMZP::command-not-found \
-  https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/termsupport.zsh \
-  OMZP::aliases \
-  OMZP::colored-man-pages
+  OMZP::aliases 
+# old 
+#   OMZP::colored-man-pages
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/termsupport.zsh \
 
 # Github Plugins
 zi-turbo '0c' for \
@@ -109,16 +111,6 @@ zi-turbo '0c' for \
   z-shell/zi-console \
   MichaelAquilina/zsh-you-should-use \
   z-shell/zbrowse
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -153,7 +145,7 @@ zi wait lucid for \
 
 # TODO move this to a sep file; fig out ocd solution to functions 
 rga-fzf() {
-	RG_PREFIX="rga --files-with-matches"
+	RG_PREFIX="rga --files-with-matches --hidden"
 	local file
 	file="$(
 		FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
@@ -163,7 +155,7 @@ rga-fzf() {
 				--preview-window="70%:wrap"
 	)" &&
 	echo "opening $file" &&a
-	xdg-open "$file"
+	open "$file"
 }
 
 # Add any commands which depend on conda here
@@ -205,7 +197,7 @@ timezsh() {
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
-source "$HOME/.zaliases"
+
 
 
 # Save command history
@@ -244,6 +236,14 @@ connectionType ()
 {
     interfaceType $(priorityInterface)
 }
+
+gc() {
+  git clone "$@"
+  cd "$(basename "$1" .git)"
+}
+
+
+
 # open man pages in dash
 # encodeuri() {
 #   local string="$*"
@@ -280,3 +280,5 @@ export PATH=$PATH:/Users/aidangibson/.spicetify
 gitc() {
   git clone "$1" && cd "$(basename "$1" .git)"
 }
+
+source "$HOME/.zaliases"

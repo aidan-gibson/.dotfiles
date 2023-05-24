@@ -19,7 +19,8 @@ export STARSHIP_CONFIG="$HOME/.dotfiles/zsh/starship.toml" #should this b elsewh
 
 
 
-
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+export MANPATH=/opt/local/share/man:$MANPATH
 
 
 
@@ -71,3 +72,4 @@ export PATH="/opt/homebrew/opt/util-linux/sbin:$PATH"
 
 # for lsregister https://ss64.com/osx/lsregister.html
 export PATH="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support:$PATH"
+export PATH="/usr/local/opt/curl-openssl/bin:$PATH"

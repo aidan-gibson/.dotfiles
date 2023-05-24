@@ -1,8 +1,10 @@
 # For a full list of active aliases, run `alias`. Or, (bc ohmyzsh plugin alias) use acs
 # Note aliases cannot have flags. If this is necessary, use a function TODO i want `ls -l` to be `exa -a --icons -F -l -H -i -h`
-alias ls="exa -a --icons -F"
+alias ls="exa -a --icons -F --git"
+alias which="which -a"
 alias tree="ls --tree" # this will use prior alias; so it will be `exa -a --icons -F --tree` setopt COMPLETE_ALIASES would prevent that behavior
 alias cat="bat"
+alias j="just"
 alias python="python3"
 alias python3="python3.11"
 alias pip="python3 -m pip"
@@ -15,7 +17,6 @@ alias brew86="arch -x86_64 /usr/local/bin/brew"
 alias intel="arch -x86_64 /bin/zsh"
 alias airdrop="sh /usr/local/bin/airdropfix.sh"
 alias s="sudo pmset disablesleep 0 && sudo pmset sleepnow"
-alias c="clear"
 alias reload='source ~/.zshrc'
 alias pyenv86="arch -x86_64 pyenv"
 alias python3.7="arch -x86_64 /Users/aidangibson/.pyenv/versions/3.7.14/bin/python3.7"
@@ -24,7 +25,7 @@ alias rip="rip --graveyard ~/.Trash"
 alias pinentry='pinentry-mac'
 alias ext="cd '/Users/aidangibson/Library/Mobile Documents/iCloud~md~obsidian/Documents/Ext Brain'"
 alias ziu="zi self-update && zi delete --yes --quiet --clean && zi update --all --parallel --quiet"
-alias bu="brew update && brew upgrade && ziu && tldr --update && sudo softwareupdate -ia --verbose && pip install --upgrade pip"
+alias bu="brew update && brew upgrade && ziu && tldr --update && pip install --upgrade pip && sudo softwareupdate -ia --verbose"
 # not doing `pip-review --auto` to auto-update pip packages bc will break shit
 
 # Dear future potential employers: I don't use this alias on other people's repos and only use it for small changes on personal repos.
@@ -34,3 +35,22 @@ alias chatgpt="noglob chatgpt" # # https://www.reddit.com/r/zsh/comments/h9mdvc/
 # alias man="openman"
 
 alias warp="open -a Warp ." # can now type `warp` to open warp in current dir if I'm in jetbrains or some integrated term
+
+
+light="catppuccin-latte"
+dark="catppuccin-mocha"
+
+
+
+alias spotl="spicetify config current_theme ${light} && spicetify config extensions ${dark}.js- && spicetify config extensions ${light}.js &&spicetify apply enable-devtools"
+alias spotd="spicetify config current_theme ${dark} && spicetify config extensions ${light}.js- && spicetify config extensions ${dark}.js &&spicetify apply enable-devtools"
+
+spot(){
+    current_theme=$(spicetify config current_theme)
+    if [[ "$current_theme" == "$dark" ]]; then
+        spotl
+    else
+        spotd
+    fi
+}
+
