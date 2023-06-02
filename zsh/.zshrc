@@ -245,30 +245,30 @@ gc() {
 
 
 # open man pages in dash
-# encodeuri() {
-#   local string="$*"
-#   local strlen=${#string}
-#   local encoded=""
+encodeuri() {
+  local string="$*"
+  local strlen=${#string}
+  local encoded=""
 
-#   for (( pos = 0; pos < strlen; pos ++ )); do
-#     c=${string:$pos:1}
-#     case "$c" in
-#       [-_.~a-zA-Z0-9]) o="${c}" ;;
-#       *) printf -v o '%%%02x' "'$c"
-#     esac
-#     encoded+="${o}"
-#   done
-#   echo "${encoded}"
-# }
-# man() {
-#   if [[ -d /Applications/Dash.app && \
-#     -d "$HOME/Library/Application Support/Dash/DocSets/Man_Pages" ]]; then
-#     /usr/bin/open dash://$(encodeuri "$@")
-#   else
-#     /usr/bin/man "$@"
-#   fi
-# }
-
+  for (( pos = 0; pos < strlen; pos ++ )); do
+    c=${string:$pos:1}
+    case "$c" in
+      [-_.~a-zA-Z0-9]) o="${c}" ;;
+      *) printf -v o '%%%02x' "'$c"
+    esac
+    encoded+="${o}"
+  done
+  echo "${encoded}"
+}
+man() {
+  if [[ -d /Applications/Dash.app && \
+    -d "$HOME/Library/Application Support/Dash/DocSets/Man_Pages" ]]; then
+    /usr/bin/open dash://$(encodeuri "$@")
+  else
+    /usr/bin/man "$@"
+  fi
+}
+##################################################################################
 
 # uses preview. no links or colors tho. https://scriptingosx.com/2022/11/on-viewing-man-pages-ventura-update/
 # more sophisticated version of the script w caching here https://gist.github.com/PicoMitchell/619c12fd6a53ae6ec657514915d4edf9
@@ -276,6 +276,23 @@ gc() {
 #     mandoc -T pdf "$(/usr/bin/man -w $@)" | open -fa Preview
 # }
 export PATH=$PATH:/Users/aidangibson/.spicetify
+
+# do what it normally does. but then also add a link to google maps lat+long
+# command keyword prevents function from calling itself recursively. By using the command keyword, you explicitly instruct the shell to bypass any function or alias with the same name and execute the actual command or utility directly.
+# $@ is all of the positional parameters (so u don't lose exiftool options i may have placed)
+exiftool() {
+  command exiftool "$@"
+  pos=`command exiftool -c '%.8f' -s3 -GPSPosition "$_"`
+  echo $pos
+  #replace spaces with %20
+  # ${var//<pattern>/<replacement>} replaces all pattern with replacement
+  encoded_pos=${pos//" "/"%20"}
+  # Replace commas with %2C
+  encoded_pos=${encoded_pos//","/"%2C"}
+
+  echo "https://maps.apple.com/?q=${encoded_pos}"
+  echo "https://www.google.com/maps/search/?api=1&query=${encoded_pos}"
+}
 
 gitc() {
   git clone "$1" && cd "$(basename "$1" .git)"
