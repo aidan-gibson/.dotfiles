@@ -192,6 +192,11 @@ rga-fzf() {
 #   alias $lazy_conda_alias="load_conda && $lazy_conda_alias"
 # done
 
+venv () { 
+	[ -f bin/activate ] || [ -f venv/bin/activate ] || python3 -m venv .; 
+	source bin/activate 2> /dev/null || source venv/bin/activate 
+	}
+
 timezsh() {
   shell=${1-$SHELL}
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
