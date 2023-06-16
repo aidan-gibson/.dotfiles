@@ -6,10 +6,11 @@ alias which="which -a"
 alias tree="ls --tree" # this will use prior alias; so it will be `exa -a --icons -F --tree` setopt COMPLETE_ALIASES would prevent that behavior
 alias cat="bat"
 alias j="just"
-# alias python="python3"
+alias python="python3"
 # alias python3="python3.11"
-# alias pip="python3 -m pip"
-# alias pip3="python3 -m pip"
+alias pip="python3 -m pip"
+alias pip3="python3 -m pip"
+alias pip3.11="python3.11 -m pip"
 # alias python3.9="/opt/homebrew/bin/python3.9"
 alias pi="python3 -i"
 alias karabiner="code /Users/aidangibson/.config/karabiner.edn"
@@ -26,7 +27,8 @@ alias rip="rip --graveyard ~/.Trash"
 alias pinentry='pinentry-mac'
 alias ext="cd '/Users/aidangibson/Library/Mobile Documents/iCloud~md~obsidian/Documents/Ext Brain'"
 alias ziu="zi self-update && zi delete --yes --quiet --clean && zi update --all --parallel --quiet"
-alias bu="brew update && brew upgrade && ziu && tldr --update && pip install --upgrade pip && sudo softwareupdate -ia --verbose"
+alias npmu="nvm install 'lts/*' --reinstall-packages-from=default --latest-npm"
+alias bu="brew update && brew upgrade && brew cleanup && ziu && tldr --update && pip install --upgrade pip && npm install -g npm@latest && sudo softwareupdate -ia --verbose"
 # wrapper: alias should just add gps one after full one and add apple maps + google maps link
 
 # not doing `pip-review --auto` to auto-update pip packages bc will break shit

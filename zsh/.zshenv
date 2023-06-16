@@ -1,6 +1,7 @@
 # . "$HOME/.cargo/env"
 # PATH begin
 # TODO why do some have path at beginning and some at end?
+export QUARTO_PYTHON=/opt/homebrew/bin/python3.11
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/Applications/calibre.app/Contents/MacOS:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"

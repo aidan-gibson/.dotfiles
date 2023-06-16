@@ -107,6 +107,7 @@ zi-turbo '0b' for \
 
 # Github Plugins
 zi-turbo '0c' for \
+  lukechilds/zsh-nvm \
   z-shell/zui \
   z-shell/zi-console \
   MichaelAquilina/zsh-you-should-use \
@@ -303,4 +304,15 @@ gitc() {
   git clone "$1" && cd "$(basename "$1" .git)"
 }
 
+# Export nvm completion settings for zsh-nvm plugin
+export NVM_COMPLETION=true
+export NVM_LAZY_LOAD=true
+
+# zi light lukechilds/zsh-nvm
+
 source "$HOME/.zaliases"
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
