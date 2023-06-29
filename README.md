@@ -22,4 +22,26 @@ they're both inc, but eventually put a tldr of em in repo
 
 
 
-how does current hook work?
+how does current hook work? add it to global AND make it work for aliases
+
+
+
+
+
+==needs to be bidirectional. if i edit my userscripts elsewhere and git push it'll fuck shit up on the mac.==
+
+
+
+
+
+
+
+# philosophy
+
+
+
+i want to be able to SEE everything in .dotfiles or in the gh repo. on gh repo it'll be submodules, in actual it'll be 
+
+
+
+I should use submodules for things like Userscripts, PhoenixConfig etc 
