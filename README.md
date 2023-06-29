@@ -40,8 +40,12 @@ how does current hook work? add it to global AND make it work for aliases
 
 
 
-i want to be able to SEE everything in .dotfiles or in the gh repo. on gh repo it'll be submodules, in actual it'll be 
+i want to be able to SEE everything in .dotfiles or in the gh repo.
+
+symlink limitation: if original file in icloud/safari userscripts gets inode changed, symlink dies. 
+
+github submodules annoying bc if i change file, gh push, from within the submodule, i also have to `git submodule update --remote` from within the parent dir
 
 
 
-I should use submodules for things like Userscripts, PhoenixConfig etc 
+alias precommits and make sure shit isn't fucked w post
