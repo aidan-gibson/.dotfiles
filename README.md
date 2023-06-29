@@ -18,3 +18,8 @@ precommit can resolve symlinks to real files; fig out same thing but for aliases
 they're both inc, but eventually put a tldr of em in repo
 
 - [ ] set up gh action to test how all the benchmarks change after every commit, make a graph
+- [ ] alisma git hook for aliases 
+
+
+
+how does current hook work?
