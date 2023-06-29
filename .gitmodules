@@ -1,0 +1,3 @@
+[submodule "phoenix-config"]
+	path = phoenix-config
+	url = https://github.com/aidan-gibson/phoenix-config
