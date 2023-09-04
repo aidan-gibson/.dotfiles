@@ -51,12 +51,15 @@ setopt pushd_minus          # Swap the meaning of cd +1 and cd -1 to the opposit
 # Prompt First
 if [[ ! $TERM_PROGRAM = "WarpTerminal" ]]
 then
-zi ice wait as"command" from"gh-r" \
+# not warp
+zi ice as"command" from"gh-r" \
   atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
   atpull"%atclone" src"init.zsh"
 zi ice lucid wait'!0'
-zi load starship/starship
+zi light starship/starship
 else
+export STARSHIP_CONFIG="$HOME/.dotfiles/zsh/starshipwarp.toml"
+# warp TODO it needs to not load ❯ when in warp bc warp truncates input after that, so i don't see if im in a conda env etc https://github.com/warpdotdev/Warp/issues/765. be mindful that if i comment this out, not loading starship on warp, and run `bu` from warp, other shells will break TODO yeet starship for warp
 zi ice as"command" from"gh-r" \
   atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
   atpull"%atclone" src"init.zsh"
@@ -159,43 +162,11 @@ rga-fzf() {
 	open "$file"
 }
 
-# Add any commands which depend on conda here
-#TODO yeet this, it's making 'python' be python2.7. make it a function and defer it
-# lazy_conda_aliases=('python' 'conda')
-# load_conda() {
-#   for lazy_conda_alias in $lazy_conda_aliases
-#   do
-#     unalias $lazy_conda_alias
-#   done
 
-#   __conda_prefix="$HOME/opt/anaconda3" # Set your conda Location
-
-#   # >>> conda initialize >>>
-#   __conda_setup="$("$__conda_prefix/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
-#   if [ $? -eq 0 ]; then
-#       eval "$__conda_setup"
-#   else
-#       if [ -f "$__conda_prefix/etc/profile.d/conda.sh" ]; then
-#           . "$__conda_prefix/etc/profile.d/conda.sh"
-#       else
-#           export PATH="$__conda_prefix/bin:$PATH"
-#       fi
-#   fi
-#   unset __conda_setup
-#   # <<< conda initialize <<<
-
-#   unset __conda_prefix
-#   unfunction load_conda
-# }
-
-# for lazy_conda_alias in $lazy_conda_aliases
-# do
-#   alias $lazy_conda_alias="load_conda && $lazy_conda_alias"
-# done
 
 venv () { 
 	[ -f bin/activate ] || [ -f venv/bin/activate ] || python3 -m venv .; 
-	source bin/activate 2> /dev/null || source venv/bin/activate 
+# source bin/activate 2> /dev/null || source venv/bin/activate   # commented out by conda initialize
 	}
 
 timezsh() {
@@ -211,7 +182,6 @@ timezsh() {
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_h
 HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
-export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
 # zsh-defer export GEM_HOME="$(ruby -e 'puts Gem.user_dir')" # TODO do i need this given that I'm using frum? also its pointing to 2.6 (macOS install) ):
 zsh-defer eval "$(frum init)"
 
@@ -223,7 +193,7 @@ zsh-defer eval "$(frum init)"
 
 # TODO put all fncs in sep file or folder and zsh-defer loading it
 
-# https://unix.stackexchange.com/questions/125385/combined-mkdir-and-cd
+
 mkdr () {
   mkdir -p -- "$1" && 
   cd -P -- "$1"
@@ -303,16 +273,78 @@ exiftool() {
 gitc() {
   git clone "$1" && cd "$(basename "$1" .git)"
 }
-
+kill () {
+  command kill -KILL $(pidof "$@")
+}
 # Export nvm completion settings for zsh-nvm plugin
 export NVM_COMPLETION=true
 export NVM_LAZY_LOAD=true
 
 # zi light lukechilds/zsh-nvm
 
-source "$HOME/.zaliases"
+zsh-defer source "$HOME/.zaliases"
 
-
+bullshit() {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
 source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+}
+zsh-defer bullshit
+
+# load_conda() {
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/aidangibson/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/aidangibson/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/Users/aidangibson/miniforge3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/aidangibson/miniforge3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+# }
+# zsh-defer load_conda
+
+
+
+# some old bullshit 
+
+# Add any commands which depend on conda here
+#TODO yeet this, it's making 'python' be python2.7. make it a function and defer it
+# lazy_conda_aliases=('python' 'conda')
+# load_conda() {
+#   for lazy_conda_alias in $lazy_conda_aliases
+#   do
+#     unalias $lazy_conda_alias
+#   done
+
+#   __conda_prefix="$HOME/opt/anaconda3" # Set your conda Location
+
+#   # >>> conda initialize >>>
+#   __conda_setup="$("$__conda_prefix/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
+#   if [ $? -eq 0 ]; then
+#       eval "$__conda_setup"
+#   else
+#       if [ -f "$__conda_prefix/etc/profile.d/conda.sh" ]; then
+#           . "$__conda_prefix/etc/profile.d/conda.sh"
+#       else
+#           export PATH="$__conda_prefix/bin:$PATH"
+#       fi
+#   fi
+#   unset __conda_setup
+#   # <<< conda initialize <<<
+
+#   unset __conda_prefix
+#   unfunction load_conda
+# }
+
+# for lazy_conda_alias in $lazy_conda_aliases
+# do
+#   alias $lazy_conda_alias="load_conda && $lazy_conda_alias"
+# done
+# Created by `pipx` on 2023-08-08 04:04:10
+export PATH="$PATH:/Users/aidangibson/.local/bin"

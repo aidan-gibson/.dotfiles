@@ -5,7 +5,7 @@ export QUARTO_PYTHON=/opt/homebrew/bin/python3.11
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/Applications/calibre.app/Contents/MacOS:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-export STARSHIP_CONFIG="$HOME/.dotfiles/zsh/starship.toml" #should this b elsewhere?? look at loading sequence etc
+export STARSHIP_CONFIG="$HOME/.dotfiles/zsh/starship.toml"
 # export PATH="/opt/homebrew/opt/ruby/bin:$PATH" #this changes default ruby from macOS to brew
 # export PATH="$PATH:$GEM_HOME/bin"
 # export PATH="$HOME/.gem/ruby/3.1.0/bin:$PATH"
@@ -19,7 +19,7 @@ export STARSHIP_CONFIG="$HOME/.dotfiles/zsh/starship.toml" #should this b elsewh
 # export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 
 
-
+export XDG_CONFIG_HOME=$HOME/.config
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export MANPATH=/opt/local/share/man:$MANPATH
 
@@ -31,7 +31,6 @@ export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/opt/homebrew/bin/hashcat
 export PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH" #adds homebrew make to path
 export PATH="/opt/homebrew/opt/sphinx-doc/bin:$PATH"
-# PATH end
 
 # export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
 # export LDFLAGS="-L/opt/homebrew/opt/libpcap/lib"
@@ -74,3 +73,4 @@ export PATH="/opt/homebrew/opt/util-linux/sbin:$PATH"
 # for lsregister https://ss64.com/osx/lsregister.html
 export PATH="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support:$PATH"
 export PATH="/usr/local/opt/curl-openssl/bin:$PATH"
+source "$HOME/.cargo/env"

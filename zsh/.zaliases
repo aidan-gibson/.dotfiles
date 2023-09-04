@@ -1,6 +1,7 @@
 # For a full list of active aliases, run `alias`. Or, (bc ohmyzsh plugin alias) use acs
 # Note aliases cannot have flags. If this is necessary, use a function TODO i want `ls -l` to be `exa -a --icons -F -l -H -i -h`
 alias ls="exa -a --icons -F --git"
+alias sed="sd"
 # lsd -a --icons show size of directories
 alias which="which -a"
 alias tree="ls --tree" # this will use prior alias; so it will be `exa -a --icons -F --tree` setopt COMPLETE_ALIASES would prevent that behavior
@@ -9,6 +10,7 @@ alias j="just"
 alias python="python3"
 # alias python3="python3.11"
 alias pip="python3 -m pip"
+# alias rmb='brew services restart felixkratz/formulae/sketchybar'
 alias pip3="python3 -m pip"
 alias pip3.11="python3.11 -m pip"
 # alias python3.9="/opt/homebrew/bin/python3.9"
@@ -27,10 +29,11 @@ alias rip="rip --graveyard ~/.Trash"
 alias pinentry='pinentry-mac'
 alias ext="cd '/Users/aidangibson/Library/Mobile Documents/iCloud~md~obsidian/Documents/Ext Brain'"
 alias ziu="zi self-update && zi delete --yes --quiet --clean && zi update --all --parallel --quiet"
-alias npmu="nvm install 'lts/*' --reinstall-packages-from=default --latest-npm"
-alias bu="brew update && brew upgrade && brew cleanup && ziu && tldr --update && pip install --upgrade pip && npm install -g npm@latest && sudo softwareupdate -ia --verbose"
+alias npmu="nvm install 'lts/*' --reinstall-packages-from=default --latest-npm && nvm use 'lts/*'"
+# yeeted npm install -g npm@latest
+alias bu="brew update && brew upgrade && brew cleanup && ziu && tldr --update && pip install --upgrade pip && nvm install 'lts/*' --reinstall-packages-from=default --latest-npm && conda update conda -y && sudo softwareupdate -ia --verbose"
 # wrapper: alias should just add gps one after full one and add apple maps + google maps link
-
+alias kaleidoscope=ksdiff
 # not doing `pip-review --auto` to auto-update pip packages bc will break shit
 
 # Dear future potential employers: I don't use this alias on other people's repos and only use it for small changes on personal repos.

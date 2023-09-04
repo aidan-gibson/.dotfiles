@@ -44,6 +44,8 @@ i want to be able to SEE everything in .dotfiles or in the gh repo.
 
 symlink limitation: if original file in icloud/safari userscripts gets inode changed, symlink dies. 
 
+hardlink no: i forgor why
+
 github submodules annoying bc if i change file, gh push, from within the submodule, i also have to `git submodule update --remote` from within the parent dir
 
 
