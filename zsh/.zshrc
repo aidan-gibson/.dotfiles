@@ -67,12 +67,15 @@ zi light starship/starship
 fi
 # Zsh-defer can't be deferred itself, it must run before it is used
 zi light romkatv/zsh-defer
+zi wait lucid for MichaelAquilina/zsh-autoswitch-virtualenv
 #
 # Metaplugins https://wiki.zshell.dev/ecosystem/annexes/meta-plugins
 # zi light-mode for z-shell/z-a-meta-plugins \
 #   @annexes+ @console-tools @ext-git @fuzzy @py-utils @rust-utils @sharkdp @z-shell @zsh-users+fast @zunit @zsh-users
 # this is all of em except: @z-shell+ @prezto @developer-tools @fuzzy-src @romkatv
-
+zi ice as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
+  atpull'%atclone' src"zhook.zsh"
+zi light direnv/direnv
 # Oh-My-Zsh Library  https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/
 # backslash just escapes the newline char, using for readability 
 # zi-turbo a-c 0-9. heavier things should be loaded later. syntax highlighters must be loaded last
@@ -149,7 +152,7 @@ zi wait lucid for \
 
 # TODO move this to a sep file; fig out ocd solution to functions 
 rga-fzf() {
-	RG_PREFIX="rga --files-with-matches --hidden"
+	RG_PREFIX="rga -i --files-with-matches --hidden --type all"
 	local file
 	file="$(
 		FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
@@ -161,6 +164,21 @@ rga-fzf() {
 	echo "opening $file" &&a
 	open "$file"
 }
+
+rga-fzfa() {
+	RG_PREFIX="rga --hidden -i --files-with-matches --type all --rga-adapters=pdfpages,tesseract"
+	local file
+	file="$(
+		FZF_DEFAULT_COMMAND="$RG_PREFIX '$1'" \
+			fzf --sort --preview="[[ ! -z {} ]] && rga --pretty --context 5 {q} {}" \
+				--phony -q "$1" \
+				--bind "change:reload:$RG_PREFIX {q}" \
+				--preview-window="70%:wrap"
+	)" &&
+	echo "opening $file" &&a
+	open "$file"
+}
+
 
 
 
@@ -182,6 +200,23 @@ timezsh() {
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_h
 HISTSIZE=999999999
 SAVEHIST=$HISTSIZE
+
+#TODO doesn't work
+unpriv() {
+  # Clear in-memory history to prevent saving commands from the private session.
+  fc -p /dev/null # temporarily sets the history file to /dev/null, effectively clearing the in-memory history.
+  HISTFILE=${ZDOTDIR:-$HOME}/.zsh_h
+  HISTSIZE=999999999
+  SAVEHIST=$HISTSIZE
+  # Restore the previous history file to resume normal operation.
+  fc -P # restores the previous history file path, which allows zsh to start saving history again.
+}
+
+
+priv() {
+  unset HISTFILE
+}
+
 # zsh-defer export GEM_HOME="$(ruby -e 'puts Gem.user_dir')" # TODO do i need this given that I'm using frum? also its pointing to 2.6 (macOS install) ):
 zsh-defer eval "$(frum init)"
 
@@ -198,6 +233,29 @@ mkdr () {
   mkdir -p -- "$1" && 
   cd -P -- "$1"
 }
+# "which IP"
+# tailscale ip -4
+# tailscale ip -6
+wip () {
+  echo "$(connectionType) via $(priorityInterface) ($(ifconfig $(priorityInterface) | awk '/ether/{print $2}'))"
+  echo "Internal  IPv4: $(ipconfig getifaddr $(priorityInterface))"
+  ip=$(curl -s http://api.ipify.org)
+  echo "Public    IPv4: $ip"
+  ip6=$(curl -s http://api6.ipify.org)
+  if [[ -n "$ip6" ]]; then
+    echo "Public   IPv6: $ip6"
+  fi
+
+ts_status=$(tailscale status)
+
+if [[ "$ts_status" != "Tailscale is stopped." ]]; then
+  tailscale_ip=$(tailscale ip -4)
+  tailscale_ip6=$(tailscale ip -6)
+  echo "Tailscale IPv4: $tailscale_ip"
+  echo "Tailscale IPv6: $tailscale_ip6"
+fi
+speedtest
+}
 
 
 priorityInterface ()
@@ -213,10 +271,6 @@ connectionType ()
     interfaceType $(priorityInterface)
 }
 
-gc() {
-  git clone "$@"
-  cd "$(basename "$1" .git)"
-}
 
 
 
@@ -270,8 +324,13 @@ exiftool() {
   echo "https://www.google.com/maps/search/?api=1&query=${encoded_pos}"
 }
 
-gitc() {
-  git clone "$1" && cd "$(basename "$1" .git)"
+# gc() {
+#   git clone "$1" && cd "$(basename "$1" .git)"
+# }
+
+gc() {
+  git clone "$@"
+  cd "$(basename "$1" .git)"
 }
 kill () {
   command kill -KILL $(pidof "$@")
@@ -291,9 +350,22 @@ source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 }
 zsh-defer bullshit
 
+
+#shasum -a 256 nmapReed.txt is mac way, diff way on linux
+
+v () {
+    vt file "$(shasum -a 256 "$1" | cut -d ' ' -f 1)"
+}
+chan() {
+    curl --form-string "text=$1" "https://api.chanify.net/v1/sender/$CHAN"
+}
+
+
 # load_conda() {
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
+
+con() {
 __conda_setup="$('/Users/aidangibson/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
@@ -308,8 +380,16 @@ unset __conda_setup
 # <<< conda initialize <<<
 # }
 # zsh-defer load_conda
+}
+zsh-defer con
 
 
+nixu() {
+  local commit_message="$1"
+  nix flake update --commit-lock-file
+  git commit -am "$commit_message"
+  git push
+}
 
 # some old bullshit 
 
@@ -348,3 +428,11 @@ unset __conda_setup
 # done
 # Created by `pipx` on 2023-08-08 04:04:10
 export PATH="$PATH:/Users/aidangibson/.local/bin"
+
+sourcing() {
+source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode
+source /Users/aidangibson/.config/broot/launcher/bash/br
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+}
+zsh-defer sourcing

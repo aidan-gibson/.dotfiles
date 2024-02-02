@@ -1,3 +1,11 @@
+
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+# End Nix
+
+        
 # System-wide profile for interactive zsh(1) shells.
 
 # Setup user specific overrides for this in ~/.zshrc. See zshbuiltins(1)
