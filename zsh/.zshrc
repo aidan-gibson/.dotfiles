@@ -22,25 +22,25 @@ source "$HOME/.zi/bin/zi.zsh" # wiki.zshell.dev
 # ~/.zshenv for env vars is loaded by zsh so no need to source
 
 # Setopts https://zsh.sourceforge.io/Doc/Release/Options.html
-setopt append_history         # Allow multiple sessions to append to one Zsh command history.
-setopt extended_history       # Show timestamp in history.
-setopt hist_expire_dups_first # Expire A duplicate event first when trimming history.
-setopt hist_ignore_all_dups   # Remove older duplicate entries from history.
-setopt hist_ignore_dups       # Do not record an event that was just recorded again.
-setopt inc_append_history     # Write to the history file immediately, not when the shell exits.
-setopt share_history          # Share history between different instances of the shell.
-setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
-setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
-setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
-setopt HIST_NO_STORE             # Don't store history commands
+  setopt append_history         # Allow multiple sessions to append to one Zsh command history.
+  setopt extended_history       # Show timestamp in history.
+  setopt hist_expire_dups_first # Expire A duplicate event first when trimming history.
+  setopt hist_ignore_all_dups   # Remove older duplicate entries from history.
+  setopt hist_ignore_dups       # Do not record an event that was just recorded again.
+  setopt inc_append_history     # Write to the history file immediately, not when the shell exits.
+  setopt share_history          # Share history between different instances of the shell.
+  setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
+  setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
+  setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
+  setopt HIST_NO_STORE             # Don't store history commands
 
-setopt auto_cd              # Use cd by typing directory name if it's not a command.
-setopt auto_pushd           # Make cd push the old directory onto the directory stack.
-setopt interactive_comments # Comments even in interactive shells.
-setopt pushd_ignore_dups    # Don't push multiple copies directory onto the directory stack.
-setopt pushd_minus          # Swap the meaning of cd +1 and cd -1 to the opposite.
-# setopt SOURCE_TRACE # shows all loaded config files in order of load; great for troubleshooting
-# https://www.reddit.com/r/zsh/comments/h9mdvc/why_do_i_get_this_error_zsh_no_matches_found/
+  setopt auto_cd              # Use cd by typing directory name if it's not a command.
+  setopt auto_pushd           # Make cd push the old directory onto the directory stack.
+  setopt interactive_comments # Comments even in interactive shells.
+  setopt pushd_ignore_dups    # Don't push multiple copies directory onto the directory stack.
+  setopt pushd_minus          # Swap the meaning of cd +1 and cd -1 to the opposite.
+  # setopt SOURCE_TRACE # shows all loaded config files in order of load; great for troubleshooting
+  # https://www.reddit.com/r/zsh/comments/h9mdvc/why_do_i_get_this_error_zsh_no_matches_found/
 
 
 # Bindkeys
@@ -49,64 +49,72 @@ setopt pushd_minus          # Swap the meaning of cd +1 and cd -1 to the opposit
 # ZStyles https://wiki.zshell.dev/docs/guides/customization#style-the-completion-system-with-zstyle https://unix.stackexchange.com/questions/214657/what-does-zstyle-do/239980
 #
 # Prompt First
-if [[ ! $TERM_PROGRAM = "WarpTerminal" ]]
-then
-# not warp
-zi ice as"command" from"gh-r" \
-  atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
-  atpull"%atclone" src"init.zsh"
-zi ice lucid wait'!0'
-zi light starship/starship
-else
-export STARSHIP_CONFIG="$HOME/.dotfiles/zsh/starshipwarp.toml"
-# warp TODO it needs to not load ❯ when in warp bc warp truncates input after that, so i don't see if im in a conda env etc https://github.com/warpdotdev/Warp/issues/765. be mindful that if i comment this out, not loading starship on warp, and run `bu` from warp, other shells will break TODO yeet starship for warp
-zi ice as"command" from"gh-r" \
-  atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
-  atpull"%atclone" src"init.zsh"
-zi light starship/starship
-fi
+if [[ ! $TERM_PROGRAM = "WarpTerminal" ]] # not warp
+  then
+  # not warp, starship
+  zi ice as"command" from"gh-r" \
+    atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+    atpull"%atclone" src"init.zsh"
+  zi ice lucid wait'!0'
+  zi light starship/starship
+else # if warp
+  export STARSHIP_CONFIG="$HOME/.dotfiles/zsh/starshipwarp.toml"
+  # warp TODO it needs to not load ❯ when in warp bc warp truncates input after that, so i don't see if im in a conda env etc https://github.com/warpdotdev/Warp/issues/765. be mindful that if i comment this out, not loading starship on warp, and run `bu` from warp, other shells will break TODO yeet starship for warp
+  zi ice as"command" from"gh-r" \
+    atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+    atpull"%atclone" src"init.zsh"
+  zi light starship/starship
+  fi
+
+
+
 # Zsh-defer can't be deferred itself, it must run before it is used
 zi light romkatv/zsh-defer
-zi wait lucid for MichaelAquilina/zsh-autoswitch-virtualenv
-#
-# Metaplugins https://wiki.zshell.dev/ecosystem/annexes/meta-plugins
-# zi light-mode for z-shell/z-a-meta-plugins \
-#   @annexes+ @console-tools @ext-git @fuzzy @py-utils @rust-utils @sharkdp @z-shell @zsh-users+fast @zunit @zsh-users
-# this is all of em except: @z-shell+ @prezto @developer-tools @fuzzy-src @romkatv
-zi ice as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
-  atpull'%atclone' src"zhook.zsh"
-zi light direnv/direnv
-# Oh-My-Zsh Library  https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/
-# backslash just escapes the newline char, using for readability 
-# zi-turbo a-c 0-9. heavier things should be loaded later. syntax highlighters must be loaded last
-# zi-turbo '0a' for \
-#   OMZL::bzr.zsh \
-#   OMZL::cli.zsh \
-#   OMZL::clipboard.zsh \
-#   OMZL::completion.zsh \
-#   OMZL::correction.zsh \
-#   OMZL::directories.zsh \
-#   OMZL::misc.zsh \
-#   OMZL::prompt_info_functions.zsh \
-#   OMZL::termsupport.zsh \
-#   OMZL::vcs_info.zsh \
-#   OMZL::grep.zsh \
-#   OMZL::history.zsh \
-#   OMZL::key-bindings.zsh \
-#   OMZL::git.zsh \
-#   OMZL::compfix.zsh \
-#   OMZL::diagnostics.zsh \
-#   OMZL::spectrum.zsh \
-#   OMZL::functions.zsh
-# ones im not using (but this may update in the future so kinda a shitty system)
-# OMZL::theme-and-appearance.zsh DO NOT USE this shit aliases ls to ls -G
-# Oh-My-Zsh Plugins https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
-# If an OMZP isn't working, try adding OMZL's it depends on I may not have loaded
+
+# TODO idk
+  # Metaplugins https://wiki.zshell.dev/ecosystem/annexes/meta-plugins
+  # zi light-mode for z-shell/z-a-meta-plugins \
+  #   @annexes+ @console-tools @ext-git @fuzzy @py-utils @rust-utils @sharkdp @z-shell @zsh-users+fast @zunit @zsh-users
+  # this is all of em except: @z-shell+ @prezto @developer-tools @fuzzy-src @romkatv
+
+# direnv stuff
+  zi ice as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
+    atpull'%atclone' src"zhook.zsh"
+  zi light direnv/direnv
+
+# old
+  # Oh-My-Zsh Library  https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/
+  # backslash just escapes the newline char, using for readability 
+  # zi-turbo a-c 0-9. heavier things should be loaded later. syntax highlighters must be loaded last
+  # zi-turbo '0a' for \
+  #   OMZL::bzr.zsh \
+  #   OMZL::cli.zsh \
+  #   OMZL::clipboard.zsh \
+  #   OMZL::completion.zsh \
+  #   OMZL::correction.zsh \
+  #   OMZL::directories.zsh \
+  #   OMZL::misc.zsh \
+  #   OMZL::prompt_info_functions.zsh \
+  #   OMZL::termsupport.zsh \
+  #   OMZL::vcs_info.zsh \
+  #   OMZL::grep.zsh \
+  #   OMZL::history.zsh \
+  #   OMZL::key-bindings.zsh \
+  #   OMZL::git.zsh \
+  #   OMZL::compfix.zsh \
+  #   OMZL::diagnostics.zsh \
+  #   OMZL::spectrum.zsh \
+  #   OMZL::functions.zsh
+  # ones im not using (but this may update in the future so kinda a shitty system)
+  # OMZL::theme-and-appearance.zsh DO NOT USE this shit aliases ls to ls -G
+  # Oh-My-Zsh Plugins https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
+  # If an OMZP isn't working, try adding OMZL's it depends on I may not have loaded
 
 #TODO not working; look at that issue for acs
+# for macOS, prolly need `brew tap homebrew/command-not-found`
 zi-turbo '0b' for \
-  OMZP::command-not-found \
-  OMZP::aliases 
+  OMZP::command-not-found  #idek if this works
+  # OMZP::aliases # 
 # old 
 #   OMZP::colored-man-pages
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/termsupport.zsh \
@@ -119,7 +127,7 @@ zi-turbo '0c' for \
   MichaelAquilina/zsh-you-should-use \
   z-shell/zbrowse
 
-
+# zsh-you-should-use reminds u to use alias u have set
 
 # VERY slow way to load meta plugins 
 # zi light-mode for z-shell/z-a-meta-plugins \

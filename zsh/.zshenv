@@ -1,11 +1,15 @@
 # . "$HOME/.cargo/env"
 # PATH begin
 # TODO why do some have path at beginning and some at end?
+# TODO keep ~/.zprofile in mind
 export QUARTO_PYTHON=/opt/homebrew/bin/python3.11
+export PATH=/opt:$PATH
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/Applications/calibre.app/Contents/MacOS:$PATH"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export STARSHIP_CONFIG="$HOME/.dotfiles/zsh/starship.toml"
+export NIXPKGS_ALLOW_UNFREE=1
+# old ruby stuff; now use frum
 # export PATH="/opt/homebrew/opt/ruby/bin:$PATH" #this changes default ruby from macOS to brew
 # export PATH="$PATH:$GEM_HOME/bin"
 # export PATH="$HOME/.gem/ruby/3.1.0/bin:$PATH"
@@ -18,10 +22,11 @@ export STARSHIP_CONFIG="$HOME/.dotfiles/zsh/starship.toml"
 # export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
 # export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 
-
+export CHAN=CICd2q4GEiJBRFpaSUxPMlRZQVBYQ0JMWFJKSFRLMkhFRUhNTDVMTldBIgkIAhoFbWFjT1M.zmYnwfNe35gbs9dHDJzLLD5G7pl_Ni5mkZMxtHRFvYg
 export XDG_CONFIG_HOME=$HOME/.config
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-export MANPATH=/opt/local/share/man:$MANPATH
+# export MANPATH=/opt/local/share/man:$MANPATH # residue from old macports install (?); it's in zprofile
+export MANPATH=/nix/var/nix/profiles/default/share/man:$MANPATH
 
 
 
@@ -74,3 +79,8 @@ export PATH="/opt/homebrew/opt/util-linux/sbin:$PATH"
 export PATH="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support:$PATH"
 export PATH="/usr/local/opt/curl-openssl/bin:$PATH"
 source "$HOME/.cargo/env"
+export PATH="$HOME/bin:$PATH"
+
+# (from brew) For compilers to find imagemagick@6 you may need to set:
+export LDFLAGS="-L/opt/homebrew/opt/imagemagick@6/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/imagemagick@6/include"
