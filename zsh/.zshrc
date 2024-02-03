@@ -1,8 +1,19 @@
+# https://wiki.zshell.dev/docs/guides/benchmark#-profile-zshrc-startup
+PROFILE_STARTUP=false
+
+if [[ "$PROFILE_STARTUP" == true ]]; then
+  zmodload zsh/zprof
+  PS4=$'%D{%M%S%.} %N:%i> '
+  exec 3>&2 2>$HOME/startlog.$$
+  setopt xtrace prompt_subst
+fi
+
+
 # TODO scope 
 # TODO https://github.com/mafredri/zsh-async
 
 # Zmodloads https://zsh.sourceforge.io/Doc/Release/Shell-Builtin-Commands.html#index-zmodload
-zmodload zsh/zprof # enables zprof command
+
 zmodload zsh/curses # required for ziconsole https://wiki.zshell.dev/ecosystem/plugins/zi-console
 # module_path+=( "/Users/aidangibson/.zi/zmodules/zpmod/Src" )
 # zmodload zi/zpmod
@@ -444,3 +455,11 @@ source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
 source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 }
 zsh-defer sourcing
+
+
+
+
+if [[ "$PROFILE_STARTUP" == true ]]; then
+  unsetopt xtrace
+  exec 2>&3 3>&-; zprof > ~/zshprofile$(date +'%s')
+fi
